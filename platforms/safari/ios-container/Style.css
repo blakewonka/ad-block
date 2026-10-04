@@ -1,0 +1,118 @@
+/*
+ * Blocker app screen on iOS and iPadOS (platforms/safari/ios-container).
+ * Static page: no script. The web view does not scroll (the converter's
+ * ViewController sets isScrollEnabled = false), so everything must fit,
+ * including iPhone landscape; see the max-height rules at the end.
+ */
+
+* {
+    -webkit-user-select: none;
+    -webkit-user-drag: none;
+    -webkit-touch-callout: none;
+    cursor: default;
+}
+
+:root {
+    color-scheme: light dark;
+    --text: #0d0d0d;
+    --text-secondary: #5d5d5d;
+    --surface: #ffffff;
+    --card: #f3f3f3;
+    --spacing: 20px;
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --text: #ffffff;
+        --text-secondary: #afafaf;
+        --surface: #000000;
+        --card: #1c1c1e;
+    }
+}
+
+html {
+    height: 100%;
+    -webkit-text-size-adjust: 100%;
+}
+
+body {
+    box-sizing: border-box;
+    min-height: 100%;
+    margin: 0;
+    padding:
+        max(var(--spacing), env(safe-area-inset-top))
+        max(var(--spacing), env(safe-area-inset-right))
+        max(var(--spacing), env(safe-area-inset-bottom))
+        max(var(--spacing), env(safe-area-inset-left));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--surface);
+    color: var(--text);
+    font: -apple-system-body;
+}
+
+main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    width: 100%;
+    max-width: 30rem;
+    text-align: center;
+}
+
+img {
+    width: 128px;
+    height: 128px;
+    flex-shrink: 0;
+}
+
+h1 {
+    margin: 0;
+    font: -apple-system-title1;
+    font-weight: 700;
+}
+
+p {
+    margin: 0;
+    text-wrap: balance;
+}
+
+.lead {
+    color: var(--text-secondary);
+}
+
+ol {
+    box-sizing: border-box;
+    width: 100%;
+    margin: 4px 0 0;
+    padding: 14px 16px 14px 36px;
+    border-radius: 14px;
+    background: var(--card);
+    text-align: start;
+}
+
+li + li {
+    margin-top: 8px;
+}
+
+.note {
+    font: -apple-system-footnote;
+    color: var(--text-secondary);
+}
+
+/* iPhone landscape and other short screens: smaller icon, tighter rhythm. */
+@media (max-height: 560px) {
+    :root { --spacing: 12px; }
+    main { gap: 8px; }
+    img { width: 64px; height: 64px; }
+    h1 { font: -apple-system-title2; font-weight: 700; }
+    ol { padding-top: 10px; padding-bottom: 10px; }
+    li + li { margin-top: 4px; }
+}
+
+@media (max-height: 400px) {
+    img { display: none; }
+    .note { display: none; }
+}

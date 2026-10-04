@@ -1,0 +1,14 @@
+import type { GeneratorInputs } from './generate.mjs';
+export const UI_DIR: string;
+export const ROOT_DIR: string;
+export const UPSTREAM_DIR: string;
+export const LEGACY_SRC_DIR: string;
+export const LIBRARY_DIR: string;
+export const LIBRARY_STYLES_DIR: string;
+export const LIBRARY_VARIABLE_FILES: string[];
+export const UPSTREAM_DEFAULT_CSS: string;
+export const PRISTINE_DEFAULT_CSS: string;
+export const SPEC_FILE: string;
+export function readUpstreamCss(): { text: string; file: string; warnings: string[] };
+export function readGeneratorInputs(): { inputs: Required<GeneratorInputs>; upstreamFile: string; warnings: string[] };
+export function readSpecMarkdown(): string | undefined;

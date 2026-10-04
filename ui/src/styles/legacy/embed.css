@@ -1,0 +1,12 @@
+/*
+ * B6: when the React dashboard embeds dashboard-classic.html it sets
+ * data-blocker-embed on the frame's <html>; hide the classic header/nav and
+ * the panes the new UI replaces (docs/specs/legacy-tokens.md 6.2 =
+ * docs/specs/dashboard-shell.md E-4 R-18). Must stay the last rules of the file.
+ */
+:root[data-blocker-embed] body > header {
+    display: none !important;
+}
+:root[data-blocker-embed] body > section:is([data-pane="settings"], [data-pane="rulesets"], [data-pane="about"], [data-pane="busy"]) {
+    display: none !important;
+}

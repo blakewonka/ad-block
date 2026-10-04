@@ -1,0 +1,6 @@
+{
+  "$comment": "Copy to signing.local.json (gitignored) and fill in the values you need; an empty string means unset. developmentTeam: your 10-character Apple team id (without it the Safari app is signed ad hoc and Safari needs 'Allow unsigned extensions'). bundleIdPrefix: an identifier you own; the app is <prefix>, the extension <prefix>.Extension (default org.example.blocker, a placeholder). geckoId: the Firefox add-on id, name@your-domain or a {GUID}, never an upstream *@raymondhill.net id (default blocker@example.org, a placeholder). See docs/building.md#signing-and-bundle-identifiers.",
+  "developmentTeam": "",
+  "bundleIdPrefix": "",
+  "geckoId": ""
+}

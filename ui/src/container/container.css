@@ -1,0 +1,62 @@
+/*
+ * Container-window-only rules (docs/specs/container.md §8, §9, §11.2.8-10).
+ * Imported by src/container/main.tsx after src/styles/app.css; ends up in Style.css.
+ * Static CSS only: the page CSP (default-src 'self') blocks runtime <style>.
+ */
+
+/* System colours follow the window appearance even before Script.js sets data-theme. */
+:root {
+    color-scheme: light dark;
+}
+
+/*
+ * Pre-theme fallback: Script.js is `defer`, the first paint may come before
+ * data-theme is set. Canvas/CanvasText first (any engine, any appearance), then
+ * the colours the themed page will have, so there is no step from the system
+ * Canvas (#121212 in Chrome dark) to the surface token once data-theme is set.
+ *   light: the library's un-themed defaults ARE the light tokens (:where(:root)).
+ *   dark:  the dark tokens only exist under [data-theme="dark"], so their values
+ *          are repeated here: --color-surface = --gray-200 = #212121 and
+ *          --color-text = --gray-1000 = #ffffff (variables-primitive.css,
+ *          variables-semantic.css of @openai/apps-sdk-ui 0.2.2). The e2e test
+ *          "pre-theme first paint" fails if they drift from the themed page.
+ */
+html:not([data-theme]),
+html:not([data-theme]) body {
+    background: Canvas;
+    color: CanvasText;
+}
+@media (prefers-color-scheme: light) {
+    html:not([data-theme]),
+    html:not([data-theme]) body {
+        background: var(--color-surface, Canvas);
+        color: var(--color-text, CanvasText);
+    }
+}
+@media (prefers-color-scheme: dark) {
+    html:not([data-theme]),
+    html:not([data-theme]) body {
+        background: #212121;
+        color: #ffffff;
+    }
+}
+
+html,
+body {
+    height: 100%;
+    margin: 0;
+}
+
+/*
+ * Upstream behaviour (template Style.css:1-5): no text selection, no dragging,
+ * arrow cursor everywhere (also on the button). !important because the
+ * library's component styles set their own cursor.
+ */
+*,
+*::before,
+*::after {
+    -webkit-user-select: none !important;
+    user-select: none !important;
+    -webkit-user-drag: none !important;
+    cursor: default !important;
+}

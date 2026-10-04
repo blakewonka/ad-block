@@ -1,0 +1,62 @@
+/*
+ * B7: CodeMirror 6 chrome re-coloured through the legacy --cm-* variables
+ * (docs/specs/legacy-tokens.md 4.4, emitted verbatim by the generator).
+ * Every selector starts with ":root " so it beats CodeMirror's own theme rules.
+ */
+:root .cm-editor .cm-gutters {
+    background-color: var(--cm-gutter-surface);
+    border: 0;
+    border-inline-end: 1px solid var(--cm-gutter-border);
+    color: var(--cm-gutter-ink);
+}
+:root .cm-editor .cm-activeLineGutter,
+:root .cm-editor .cm-activeLine {
+    background-color: var(--cm-active-line);
+}
+:root .cm-editor .cm-selectionBackground {
+    background: var(--cm-selection-surface);
+}
+:root .cm-editor.cm-focused > .cm-scroller > .cm-selectionLayer .cm-selectionBackground {
+    background: var(--cm-selection-focused-surface);
+}
+:root .cm-editor .cm-cursor,
+:root .cm-editor .cm-dropCursor {
+    border-left-color: var(--cm-cursor);
+}
+:root .cm-editor .cm-panels {
+    background-color: var(--surface-1);
+    color: var(--ink-1);
+}
+:root .cm-editor .cm-panels.cm-panels-top {
+    border-bottom: 1px solid var(--border-1);
+}
+:root .cm-editor .cm-panels.cm-panels-bottom {
+    border-top: 1px solid var(--border-1);
+}
+:root .cm-editor .cm-searchMatch {
+    background-color: var(--cm-search-match-surface);
+}
+:root .cm-editor .cm-searchMatch.cm-searchMatch-selected {
+    background-color: var(--cm-searching-surface);
+}
+:root .cm-editor.cm-focused .cm-matchingBracket {
+    background-color: var(--cm-matchingbracket);
+}
+:root .cm-editor .cm-tooltip {
+    background-color: var(--surface-1);
+    border: 1px solid var(--border-1);
+    color: var(--ink-1);
+}
+:root .cm-editor .cm-foldPlaceholder {
+    color: var(--cm-foldmarker-ink);
+}
+:root .cm-container .cm-editor {
+    background-color: rgb(var(--surface-0-rgb));
+    margin: 2px;
+    outline: 1px solid var(--border-1);
+    outline-offset: 0;
+}
+:root .cm-container .cm-editor.cm-focused {
+    outline: 2px solid var(--accent-surface-1);
+    outline-offset: 0;
+}

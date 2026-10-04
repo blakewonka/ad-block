@@ -1,0 +1,43 @@
+{
+  "name": "blocker-ui",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "User interface of the Blocker browser extension (an overlay on the built uBlock Origin Lite extension).",
+  "license": "GPL-3.0-or-later",
+  "engines": {
+    "node": ">=22.12.0"
+  },
+  "scripts": {
+    "dev": "vite --config vite.harness.config.ts",
+    "build:ext": "vite build --config vite.ext.config.ts",
+    "build:container": "vite build --config vite.container.config.ts",
+    "build:harness": "vite build --config vite.harness.config.ts",
+    "build:legacy-css": "node scripts/build-legacy-css.mjs",
+    "build": "npm run build:ext && npm run build:container && npm run build:legacy-css",
+    "typecheck": "tsc --noEmit",
+    "typecheck:configs": "tsc --noEmit -p tsconfig.node.json",
+    "test": "vitest run",
+    "e2e": "node --test --test-concurrency=1 \"tests/e2e/*.mjs\""
+  },
+  "dependencies": {
+    "@openai/apps-sdk-ui": "0.2.2",
+    "react": "19.3.0",
+    "react-dom": "19.3.0"
+  },
+  "devDependencies": {
+    "@tailwindcss/vite": "4.3.3",
+    "@testing-library/jest-dom": "7.0.1",
+    "@testing-library/react": "16.3.3",
+    "@testing-library/user-event": "14.6.7",
+    "@types/react": "19.3.0",
+    "@types/react-dom": "19.3.0",
+    "@vitejs/plugin-react": "6.1.1",
+    "happy-dom": "20.14.5",
+    "playwright-core": "1.63.0",
+    "tailwindcss": "4.3.3",
+    "typescript": "7.0.2",
+    "vite": "8.3.2",
+    "vitest": "5.0.3"
+  }
+}

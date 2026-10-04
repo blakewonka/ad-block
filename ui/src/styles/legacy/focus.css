@@ -1,0 +1,15 @@
+/*
+ * B8: keyboard focus outline for the vanilla pages (docs/specs/legacy-tokens.md 4.5).
+ * Upstream removes focus outlines (tool-overlay-ui.css, popup.css, dashboard.css)
+ * and draws checkboxes and radios as an svg over an invisible input. ":root:root"
+ * outranks those rules; the editor text area is left to the B7 editor outline.
+ */
+:root:root :focus-visible:not(.cm-content) {
+    outline: 2px solid var(--accent-surface-1);
+    outline-offset: 2px;
+}
+:root:root .checkbox:has(> input:focus-visible) > svg,
+:root:root .radio:has(> input:focus-visible) > svg {
+    outline: 2px solid var(--accent-surface-1);
+    outline-offset: 2px;
+}

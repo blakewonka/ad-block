@@ -1,0 +1,12 @@
+/*
+ * B9: embedded classic dashboard column (docs/specs/legacy-tokens.md 6.5).
+ * Upstream centres a 640px column (dashboard-common.css); inside the React
+ * dashboard it starts where the React panes start and has their reading width
+ * (48rem). Only with the data-blocker-embed marker.
+ */
+:root[data-blocker-embed] body {
+    align-items: flex-start;
+}
+:root[data-blocker-embed] body > * {
+    width: min(48rem, 100%);
+}

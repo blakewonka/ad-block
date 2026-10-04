@@ -1,0 +1,47 @@
+/*
+ * Blocker UI — global stylesheet.
+ * Import this file once, as the FIRST import of every page entry.
+ *
+ * 1. Tailwind 4. `source(none)` turns automatic file scanning off; the files
+ *    Tailwind reads for class names are listed explicitly at the bottom.
+ */
+@import "tailwindcss" source(none);
+
+/*
+ * 2. @openai/apps-sdk-ui 0.2.2 styles: the same files, in the same order, as
+ *    the library's own dist/es/styles/index.css — WITHOUT katex.min.css
+ *    (it declares @font-face rules pointing at a remote CDN).
+ *    Never replace these lines with `@import "@openai/apps-sdk-ui/css"`.
+ */
+@import "../../node_modules/@openai/apps-sdk-ui/dist/es/styles/base.css";
+@import "../../node_modules/@openai/apps-sdk-ui/dist/es/styles/variables-primitive.css";
+@import "../../node_modules/@openai/apps-sdk-ui/dist/es/styles/variables-semantic.css";
+@import "../../node_modules/@openai/apps-sdk-ui/dist/es/styles/variables-components.css";
+@import "../../node_modules/@openai/apps-sdk-ui/dist/es/styles/tailwind-utilities.css";
+@import "../../node_modules/@openai/apps-sdk-ui/dist/es/styles/globals.css";
+
+/* 3. Class names used inside the library's compiled components. */
+@source "../../node_modules/@openai/apps-sdk-ui";
+
+/*
+ * 3b. `touch:` variant: a device whose primary pointer is a finger (phones and
+ *     tablets: Safari on iOS/iPadOS, Firefox for Android). The same test as
+ *     upstream's `html.mobile` (js/theme.js: no `(hover: hover)`), narrowed to a
+ *     coarse pointer. Used for touch-sized targets and the full-width popup sheet.
+ *     The library's own `hover:` variant (base.css) already requires
+ *     `(hover: hover) and (pointer: fine)`, so hover fills never stick after a tap.
+ */
+@custom-variant touch (@media (hover: none) and (pointer: coarse));
+
+/* 4. Tokens the library lacks (level colours, accent). */
+@import "./blocker-tokens.css";
+
+/*
+ * 5. Our own sources (paths are relative to this file). Anything outside
+ *    these paths is NOT scanned: docs/, tests/, scripts/, dist/, build/.
+ */
+@source "../";
+@source "../../popup.html";
+@source "../../dashboard.html";
+@source "../../container";
+@source "../../harness";

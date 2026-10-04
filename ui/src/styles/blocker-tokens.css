@@ -1,0 +1,177 @@
+/*
+ * Blocker UI — tokens the library does not provide
+ * (--blocker-level-0..3, accent, popup size; UI rules §6.9-§6.11, docs/specs/README.md).
+ * Imported by src/styles/app.css after the library's style files.
+ *
+ * ---------------------------------------------------------------------------
+ * LEVEL COLOURS  (0 none = gray, 1 basic = blue, 2 optimal = green, 3 complete = purple)
+ * ---------------------------------------------------------------------------
+ * Every value points at the library's own primitive scales (variables-primitive.css),
+ * so the colours follow the library palette. For each level N:
+ *
+ *   --blocker-level-N            solid fill (thumb, dot, selected segment, icon)
+ *   --blocker-level-N-on-solid   text / icon colour ON the solid fill
+ *   --blocker-level-N-soft       soft, opaque surface (tinted chip, card, badge)
+ *   --blocker-level-N-on-soft    readable text ON the soft surface (also readable on bg-surface*)
+ *
+ * The accent is an alias of level 1 (blue). Upstream's --accent-surface-1 is blue too:
+ *   --blocker-accent, --blocker-accent-on-solid, --blocker-accent-soft, --blocker-accent-on-soft
+ *
+ * Measured WCAG 2.x contrast ratios (sRGB relative luminance, computed from the hex
+ * values the variables resolve to, WCAG 2.x formula; re-checked 2026-10-04).
+ * Text pairs must be >= 4.5:1; a solid fill against the page needs >= 3:1 (non-text).
+ *
+ *   LIGHT  (page bg-surface #ffffff, bg-surface-elevated #ffffff, bg-surface-secondary #f9f9f9)
+ *   level        solid      on-solid   on-solid/solid   soft      on-soft    on-soft/soft  solid/surface  solid/secondary
+ *   0 gray       #5d5d5d    #ffffff    6.58             #ededed   #303030    11.27         6.58           6.25
+ *   1 blue       #0169cc    #ffffff    5.39             #e5f3ff   #004f99     7.21         5.39           5.12
+ *   2 green      #008635    #ffffff    4.71             #d9f4e4   #00692a     5.90         4.71           4.47
+ *   3 purple     #8046d9    #ffffff    5.53             #efe5fe   #532d8d     8.13         5.53           5.25
+ *   on-soft colours used directly on #ffffff: 13.20 / 8.14 / 6.88 / 9.87
+ *
+ *   DARK   (page bg-surface #212121, bg-surface-elevated #303030, bg-surface-secondary #181818)
+ *   level        solid      on-solid   on-solid/solid   soft      on-soft    on-soft/soft  solid/surface  solid/elevated
+ *   0 gray       #8f8f8f    #0d0d0d    6.01             #393939   #dcdcdc     8.42         4.98           4.08
+ *   1 blue       #339cff    #0d0d0d    6.79             #013566   #99ceff     7.42         5.63           4.61
+ *   2 green      #04b84c    #0d0d0d    7.37             #004f1f   #8cdfad     6.21         6.11           5.01
+ *   3 purple     #ad7bf9    #0d0d0d    6.46             #3f226a   #ceb0fb     6.81         5.35           4.39
+ *   on-soft colours used directly on #212121: 11.74 / 9.68 / 10.18 / 8.61; on #303030: 9.62 / 7.94 / 8.34 / 7.06
+ *
+ * The soft surfaces are deliberately opaque (not the library's alpha "-surface" tokens),
+ * so the ratios above hold whatever the soft colour is placed on.
+ *
+ * Use from Tailwind (mapped below with `@theme inline`, so nested data-theme scopes work):
+ *   bg-level-2  text-level-2-on-solid  bg-level-2-soft  text-level-2-on-soft  border-level-2
+ *   bg-accent   text-accent-on-solid   bg-accent-soft   text-accent-on-soft   ring-accent
+ * or from CSS: var(--blocker-level-2) etc.
+ */
+
+/* Light values: also the default when no data-theme is set (same rule as the library). */
+:root,
+[data-theme="light"] {
+    --blocker-level-0: var(--gray-500);
+    --blocker-level-0-on-solid: var(--white);
+    --blocker-level-0-soft: var(--gray-100);
+    --blocker-level-0-on-soft: var(--gray-700);
+
+    --blocker-level-1: var(--blue-500);
+    --blocker-level-1-on-solid: var(--white);
+    --blocker-level-1-soft: var(--blue-50);
+    --blocker-level-1-on-soft: var(--blue-600);
+
+    --blocker-level-2: var(--green-600);
+    --blocker-level-2-on-solid: var(--white);
+    --blocker-level-2-soft: var(--green-50);
+    --blocker-level-2-on-soft: var(--green-700);
+
+    --blocker-level-3: var(--purple-500);
+    --blocker-level-3-on-solid: var(--white);
+    --blocker-level-3-soft: var(--purple-50);
+    --blocker-level-3-on-soft: var(--purple-700);
+}
+
+/*
+ * Dark values. Note: the library flips the gray scale under [data-theme="dark"]
+ * (e.g. --gray-600 is #8f8f8f there), the hue scales do not change.
+ */
+[data-theme="dark"] {
+    --blocker-level-0: var(--gray-600);
+    --blocker-level-0-on-solid: var(--gray-0);
+    --blocker-level-0-soft: var(--gray-350);
+    --blocker-level-0-on-soft: var(--gray-850);
+
+    --blocker-level-1: var(--blue-300);
+    --blocker-level-1-on-solid: var(--gray-0);
+    --blocker-level-1-soft: var(--blue-800);
+    --blocker-level-1-on-soft: var(--blue-100);
+
+    --blocker-level-2: var(--green-400);
+    --blocker-level-2-on-solid: var(--gray-0);
+    --blocker-level-2-soft: var(--green-800);
+    --blocker-level-2-on-soft: var(--green-100);
+
+    --blocker-level-3: var(--purple-300);
+    --blocker-level-3-on-solid: var(--gray-0);
+    --blocker-level-3-soft: var(--purple-800);
+    --blocker-level-3-on-soft: var(--purple-100);
+
+    /*
+     * Soft danger / warning surfaces (Alert variant="soft", Badge soft …): the library's
+     * dark text colours are below 4.5:1 on their own tinted fill (red-400 on the 16% red
+     * fill over #212121 = 3.78:1, orange-400 on the orange fill = 4.37:1). One step
+     * lighter in the same hue: red-200 5.71:1, orange-200 6.30:1.
+     */
+    --color-text-danger-surface: var(--red-200);
+    --color-text-warning-surface: var(--orange-200);
+}
+
+/*
+ * Accent alias and sizes. Declared on every theme scope so that the alias is
+ * re-resolved inside a nested [data-theme] element (custom properties that
+ * reference other custom properties are resolved where they are declared).
+ */
+:root,
+[data-theme] {
+    --blocker-accent: var(--blocker-level-1);
+    --blocker-accent-on-solid: var(--blocker-level-1-on-solid);
+    --blocker-accent-soft: var(--blocker-level-1-soft);
+    --blocker-accent-on-soft: var(--blocker-level-1-on-soft);
+}
+
+:root {
+    /* Popup: fixed width (UI rule §6.9). Safari and Chrome cap a popup at 600px high. */
+    --blocker-popup-width: 340px;
+    --blocker-popup-max-height: 600px;
+    /* Dashboard / container reading column (PageShell width="page"). */
+    --blocker-page-max-width: 60rem;
+}
+
+/* Tailwind names for the tokens (bg-level-1, text-accent-on-soft, w-popup, ...). */
+@theme inline {
+    --color-level-0: var(--blocker-level-0);
+    --color-level-0-on-solid: var(--blocker-level-0-on-solid);
+    --color-level-0-soft: var(--blocker-level-0-soft);
+    --color-level-0-on-soft: var(--blocker-level-0-on-soft);
+    --color-level-1: var(--blocker-level-1);
+    --color-level-1-on-solid: var(--blocker-level-1-on-solid);
+    --color-level-1-soft: var(--blocker-level-1-soft);
+    --color-level-1-on-soft: var(--blocker-level-1-on-soft);
+    --color-level-2: var(--blocker-level-2);
+    --color-level-2-on-solid: var(--blocker-level-2-on-solid);
+    --color-level-2-soft: var(--blocker-level-2-soft);
+    --color-level-2-on-soft: var(--blocker-level-2-on-soft);
+    --color-level-3: var(--blocker-level-3);
+    --color-level-3-on-solid: var(--blocker-level-3-on-solid);
+    --color-level-3-soft: var(--blocker-level-3-soft);
+    --color-level-3-on-soft: var(--blocker-level-3-on-soft);
+    --color-accent: var(--blocker-accent);
+    --color-accent-on-solid: var(--blocker-accent-on-solid);
+    --color-accent-soft: var(--blocker-accent-soft);
+    --color-accent-on-soft: var(--blocker-accent-on-soft);
+    --container-popup: var(--blocker-popup-width);
+    --container-page: var(--blocker-page-max-width);
+    --spacing-popup: var(--blocker-popup-width);
+}
+
+/*
+ * Reduced motion (UI rule §6.10). The library's CSS has no such rule, so the
+ * SegmentedControl thumb, Animate*, shimmer, Button colour transitions and Tailwind
+ * animate-* utilities would otherwise move regardless of the user setting.
+ *
+ * Unlayered + !important so it beats Tailwind utilities, the library's layered CSS
+ * modules and React/Radix inline (CSSOM) styles. Durations are set to a hair above
+ * zero instead of `none` so that transitionend / animationend still fire: Radix
+ * Presence and the library's TransitionGroup wait for those events before unmounting.
+ */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-delay: 0s !important;
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-delay: 0s !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+}
